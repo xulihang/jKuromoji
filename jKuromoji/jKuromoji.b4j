@@ -1,0 +1,46 @@
+﻿AppType=JavaFX
+Build1=Default,b4j.example
+File1=Layout1.bjl
+FileGroup1=Default Group
+Group=Default Group
+Library1=jcore
+Library2=jfx
+Library3=jxui
+Library4=javaobject
+Module1=KuromojiToken
+Module2=KuromojiTokenizer
+NumberOfFiles=1
+NumberOfLibraries=4
+NumberOfModules=2
+Version=8.9
+@EndOfDesignText@
+#Region Project Attributes 
+	#MainFormWidth: 600
+	#MainFormHeight: 600 
+#End Region
+
+#AdditionalJar: kuromoji-core-0.9.0.jar
+#AdditionalJar: kuromoji-ipadic-0.9.0.jar
+
+Sub Process_Globals
+	Private fx As JFX
+	Private MainForm As Form
+	Private xui As XUI 
+	Private Button1 As B4XView
+	Private tokenizer As KuromojiTokenizer
+End Sub
+
+Sub AppStart (Form1 As Form, Args() As String)
+	MainForm = Form1
+	MainForm.RootPane.LoadLayout("Layout1")
+	MainForm.Show
+	tokenizer.Initialize
+End Sub
+
+Sub Button1_Click
+	Dim tokens As List = tokenizer.tokenize("あたしはおねーちゃんと違って男なんか、大っ嫌いなの。")
+	For Each token As KuromojiToken In tokens
+		Log(token.Surface &"	"& token.AllFeatures)
+		Log(token.Reading)
+	Next
+End Sub
